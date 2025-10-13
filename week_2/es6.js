@@ -130,3 +130,30 @@ console.log(arr3);
 // template literal
 const greeting = `Halo, nama saya ${nama}, NIM saya ${NIM}, saya berumur ${umur} tahun, saya jurusan ${jurusan}`;
 console.log(greeting);
+
+const listNamaMhs = arrObj.map((mhs) => mhs.nama);
+console.log(`Daftar nama mahasiswa: ${listNamaMhs.join(", ")}`);
+
+// filter
+const mhsAktif = arrObj.filter((mhs) => mhs.status === true);
+console.log(
+  `Daftar mahasiswa aktif: ${mhsAktif.map((mhs) => mhs.nama).join(", ")}`
+);
+
+// map
+const daftarMatkul = matakuliah.map((matkul) => matkul.nama);
+console.log(`Daftar mata kuliah: ${daftarMatkul.join(", ")}`);
+
+// reduce
+const totalNilaiTugas = matakuliah.reduce((total, matkul) => {
+  return total + matkul.tugas;
+}, 0);
+console.log(`Total nilai tugas: ${totalNilaiTugas}`);
+
+// arrow function
+const hitungNilaiAkhir = (tugas, uts, uas) => {
+  return (tugas + uts + uas) / 3;
+};
+
+const nilaiAkhir = hitungNilaiAkhir(80, 85, 90);
+console.log(`Nilai akhir: ${nilaiAkhir}`);
