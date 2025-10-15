@@ -14,112 +14,112 @@ export default function Home() {
         <nav className="flex-1 px-2 space-y-2">
           <a
             href="#"
-            class="flex items-center px-4 py-3 rounded-lg hover:bg-blue-800 transition"
+            className="flex items-center px-4 py-3 rounded-lg hover:bg-blue-800 transition"
           >
-            <span class="mr-3 text-lg">🏠</span> Dashboard
+            <span className="mr-3 text-lg">🏠</span> Dashboard
           </a>
           <a
             href="#"
-            class="flex items-center px-4 py-3 rounded-lg bg-blue-800 transition font-semibold"
+            className="flex items-center px-4 py-3 rounded-lg bg-blue-800 transition font-semibold"
           >
-            <span class="mr-3 text-lg">🎓</span> Mahasiswa
+            <span className="mr-3 text-lg">🎓</span> Mahasiswa
           </a>
         </nav>
       </Sidebar>
 
       <div className="flex-1 flex flex-col">
         <Header>
-          <h1 class="text-2xl font-bold text-gray-800">Mahasiswa</h1>
-          <div class="ml-auto">
-            <div class="w-10 h-10 bg-gray-300 rounded-full"></div>
+          <h1 className="text-2xl font-bold text-gray-800">Mahasiswa</h1>
+          <div className="ml-auto">
+            <div className="w-10 h-10 bg-gray-300 rounded-full"></div>
           </div>
         </Header>
 
-        <main class="flex-1 p-8 bg-gray-100">
-          <div class="max-w-7xl mx-auto">
-            <div class="bg-white p-6 rounded-xl shadow border">
-              <div class="flex items-center mb-4">
-                <h2 class="text-xl font-bold flex-1">Daftar Mahasiswa</h2>
+        <main className="flex-1 p-8 bg-gray-100">
+          <div className="max-w-7xl mx-auto">
+            <div className="bg-white p-6 rounded-xl shadow border">
+              <div className="flex items-center mb-4">
+                <h2 className="text-xl font-bold flex-1">Daftar Mahasiswa</h2>
                 <Button
                   id="btnTambah"
                   onClick={() => setOpen(true)}
-                  class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded font-semibold"
+                  className="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded font-semibold"
                 >
                   + Tambah Mahasiswa
                 </Button>
               </div>
-              <div class="overflow-x-auto">
-                <table class="min-w-full text-left">
+              <div className="overflow-x-auto">
+                <table className="min-w-full text-left">
                   <thead>
                     <tr>
-                      <th class="bg-blue-800 text-white px-4 py-2 rounded-tl w-1/6">
+                      <th className="bg-blue-800 text-white px-4 py-2 rounded-tl w-1/6">
                         NIM
                       </th>
-                      <th class="bg-blue-800 text-white px-4 py-2 w-3/5">
+                      <th className="bg-blue-800 text-white px-4 py-2 w-3/5">
                         Nama
                       </th>
-                      <th class="bg-blue-800 text-white px-4 py-2 rounded-tr w-1/6">
+                      <th className="bg-blue-800 text-white px-4 py-2 rounded-tr w-1/6">
                         Aksi
                       </th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr class="bg-gray-100">
-                      <td class="px-4 py-2 w-1/6">20211002</td>
-                      <td class="px-4 py-2 w-3/5">Ali</td>
-                      <td class="px-4 py-2 w-1/6">
-                        <button class="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded mr-2">
+                    <tr className="bg-gray-100">
+                      <td className="px-4 py-2 w-1/6">20211002</td>
+                      <td className="px-4 py-2 w-3/5">Ali</td>
+                      <td className="px-4 py-2 w-1/6">
+                        <button className="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded mr-2">
                           Edit
                         </button>
-                        <button class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded">
+                        <button className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded">
                           Hapus
                         </button>
                       </td>
                     </tr>
-                    <tr class="bg-white">
-                      <td class="px-4 py-2 w-1/6">20211003</td>
-                      <td class="px-4 py-2 w-3/5">Budi</td>
-                      <td class="px-4 py-2 w-1/6">
-                        <button class="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded mr-2">
+                    <tr className="bg-white">
+                      <td className="px-4 py-2 w-1/6">20211003</td>
+                      <td className="px-4 py-2 w-3/5">Budi</td>
+                      <td className="px-4 py-2 w-1/6">
+                        <button className="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded mr-2">
                           Edit
                         </button>
-                        <button class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded">
+                        <button className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded">
                           Hapus
                         </button>
                       </td>
                     </tr>
-                    <tr class="bg-gray-100">
-                      <td class="px-4 py-2 w-1/6">20211004</td>
-                      <td class="px-4 py-2 w-3/5">Cici</td>
-                      <td class="px-4 py-2 w-1/6">
-                        <button class="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded mr-2">
+                    <tr className="bg-gray-100">
+                      <td className="px-4 py-2 w-1/6">20211004</td>
+                      <td className="px-4 py-2 w-3/5">Cici</td>
+                      <td className="px-4 py-2 w-1/6">
+                        <button className="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded mr-2">
                           Edit
                         </button>
-                        <button class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded">
+                        <button className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded">
                           Hapus
                         </button>
                       </td>
                     </tr>
-                    <tr class="bg-white">
-                      <td class="px-4 py-2 w-1/6">20211005</td>
-                      <td class="px-4 py-2 w-3/5">Dewi</td>
-                      <td class="px-4 py-2 w-1/6">
-                        <button class="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded mr-2">
+                    <tr className="bg-white">
+                      <td className="px-4 py-2 w-1/6">20211005</td>
+                      <td className="px-4 py-2 w-3/5">Dewi</td>
+                      <td className="px-4 py-2 w-1/6">
+                        <button className="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded mr-2">
                           Edit
                         </button>
-                        <button class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded">
+                        <button className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded">
                           Hapus
                         </button>
                       </td>
                     </tr>
-                    <tr class="bg-gray-100">
-                      <td class="px-4 py-2 w-1/6">20211001</td>
-                      <td class="px-4 py-2 w-3/5">Eko</td>
-                      <td class="px-4 py-2 w-1/6">
-                        <Button class="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded mr-2">
+                    <tr className="bg-gray-100">
+                      <td className="px-4 py-2 w-1/6">20211001</td>
+                      <td className="px-4 py-2 w-3/5">Eko</td>
+                      <td className="px-4 py-2 w-1/6">
+                        <Button className="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded mr-2">
                           Edit
                         </Button>
-                        <Button class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded">
+                        <Button className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded">
                           Hapus
                         </Button>
                       </td>
@@ -132,37 +132,37 @@ export default function Home() {
 
           {/* <!-- Modal Overlay --> */}
           <Modal isOpen={open}>
-            <div class="flex items-center mb-6">
-              <h3 class="text-xl font-bold flex-1">Tambah Mahasiswa</h3>
+            <div className="flex items-center mb-6">
+              <h3 className="text-xl font-bold flex-1">Tambah Mahasiswa</h3>
               <Button
                 id="btnCloseModal"
                 onClick={() => setOpen(false)}
-                class="text-gray-500 text-2xl font-bold hover:text-gray-700 absolute right-6 top-6"
+                className="text-gray-500 text-2xl font-bold hover:text-gray-700 absolute right-6 top-6"
               >
                 &times;
               </Button>
             </div>
-            <Form class="space-y-4" onSubmit={(e) => e.preventDefault()}>
-              <div class="mb-4">
-                <label class="block mb-2 font-semibold">NIM</label>
+            <Form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+              <div className="mb-4">
+                <label className="block mb-2 font-semibold">NIM</label>
                 <input
                   type="text"
-                  class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
-              <div class="mb-6">
-                <label class="block mb-2 font-semibold">Nama</label>
+              <div className="mb-6">
+                <label className="block mb-2 font-semibold">Nama</label>
                 <input
                   type="text"
-                  class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
-              <div class="flex justify-end space-x-3">
+              <div className="flex justify-end space-x-3">
                 <Button
                   type="button"
                   id="btnBatal"
                   onClick={() => setOpen(false)}
-                  class="bg-gray-400 hover:bg-gray-500 text-white px-6 py-2 rounded font-semibold"
+                  className="bg-gray-400 hover:bg-gray-500 text-white px-6 py-2 rounded font-semibold"
                 >
                   Batal
                 </Button>
@@ -172,7 +172,7 @@ export default function Home() {
                     alert("Data tersimpan!");
                     setOpen(false);
                   }}
-                  class="bg-blue-700 hover:bg-blue-800 text-white px-6 py-2 rounded font-semibold"
+                  className="bg-blue-700 hover:bg-blue-800 text-white px-6 py-2 rounded font-semibold"
                 >
                   Simpan
                 </Button>
