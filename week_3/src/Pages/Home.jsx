@@ -5,35 +5,14 @@ import Modal from "@/components/ui/Modal";
 import { Sidebar } from "@/components/ui/Sidebar";
 import { useState } from "react";
 
-export default function Home() {
+export default function Dashboard() {
   const [open, setOpen] = useState(false);
   return (
     <div className="bg-gray-100 flex h-screen">
-      <Sidebar>
-        <div className="px-6 py-6 text-2xl font-bold"> ADMIN </div>
-        <nav className="flex-1 px-2 space-y-2">
-          <a
-            href="#"
-            className="flex items-center px-4 py-3 rounded-lg hover:bg-blue-800 transition"
-          >
-            <span className="mr-3 text-lg">🏠</span> Dashboard
-          </a>
-          <a
-            href="#"
-            className="flex items-center px-4 py-3 rounded-lg bg-blue-800 transition font-semibold"
-          >
-            <span className="mr-3 text-lg">🎓</span> Mahasiswa
-          </a>
-        </nav>
-      </Sidebar>
+      <Sidebar/>
 
       <div className="flex-1 flex flex-col">
-        <Header>
-          <h1 className="text-2xl font-bold text-gray-800">Mahasiswa</h1>
-          <div className="ml-auto">
-            <div className="w-10 h-10 bg-gray-300 rounded-full"></div>
-          </div>
-        </Header>
+        <Header />
 
         <main className="flex-1 p-8 bg-gray-100">
           <div className="max-w-7xl mx-auto">
