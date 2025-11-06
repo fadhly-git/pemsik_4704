@@ -15,6 +15,7 @@ import { Login } from "@/Pages/Auth/Login";
 import Dashboard from "@/Pages/Admin/Dashboard/Dashboard";
 import Mahasiswa from "@/Pages/Admin/Mahasiswa/Mahasiswa";
 import MahasiswaDetail from "@/Pages/Admin/MahasiswaDetail/MahasiswaDetail";
+import Kelas from "@/Pages/Admin/Kelas/Kelas";
 import { PageNotFound } from "@/Pages/Error/PageNotFound";
 import { Toaster } from "react-hot-toast";
 
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: "dashboard",
         element: <Dashboard />,
+      },
+      {
+        path: "kelas",
+        element: <Kelas />,
       },
       {
         path: "mahasiswa",

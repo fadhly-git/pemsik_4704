@@ -9,8 +9,10 @@ const Header = () => {
 
   const handleLogout = () => {
     confirmLogout(() => {
-      window.location.href = "/";
-      localStorage.removeItem("user");
+      setTimeout(() => {
+        window.location.href = "/";
+        localStorage.removeItem("user");
+      }, 2000);
     });
   };
 
