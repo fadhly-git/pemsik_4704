@@ -6,6 +6,7 @@ import { dummyUser } from "@/Data/Dummy";
 import Heading from "@/components/ui/Heading";
 import { Card } from "@/components/ui/Card";
 import { Link } from "@/components/ui/Link";
+import { toastError } from "@/utils/helpers/toast-helper";
 
 const Login = () => {
   const handleSubmit = (e) => {
@@ -17,7 +18,7 @@ const Login = () => {
       localStorage.setItem("user", JSON.stringify(dummyUser));
       window.location.href = "/admin";
     } else {
-      alert("Email atau password salah!");
+      toastError("Email atau password salah");
     }
   };
 

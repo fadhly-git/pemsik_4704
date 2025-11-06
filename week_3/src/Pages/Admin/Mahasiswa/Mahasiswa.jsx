@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/Button";
 import { mahasiswaList } from "@/Data/Dummy";
 import MahasiswaTable from "./MahasiswaTable";
 import MahasiswaModal from "./MahasiswaModal";
+import { confirmDelete, confirmUpdate } from "@/utils/helpers/swal-helpers";
+import { toastError, toastSuccess } from "@/utils/helpers/toast-helper";
 
 const Mahasiswa = () => {
   // State mahasiswa: mahasiswa, setMahasiswa
@@ -21,11 +23,11 @@ const Mahasiswa = () => {
     // Validasi NIM unique
     const exists = mahasiswa.find((m) => m.nim === newMhs.nim);
     if (exists) {
-      alert("NIM sudah terdaftar! Gunakan NIM yang berbeda.");
+      toastError("NIM sudah terdaftar! Gunakan NIM yang berbeda.");
       return false;
     }
     setMahasiswa((prev) => [...prev, newMhs]);
-    alert("Data berhasil ditambahkan!");
+    toastSuccess("Data berhasil ditambahkan");
     return true;
   };
 
@@ -34,13 +36,12 @@ const Mahasiswa = () => {
     setMahasiswa((prev) =>
       prev.map((mhs) => (mhs.nim === nim ? { ...mhs, ...updatedData } : mhs))
     );
-    alert("Data berhasil diperbarui!");
+    toastSuccess("Data berhasil diperbarui");
   };
 
   // deleteMahasiswa: delete mahasiswa dengan nim dari state mahasiswa
   const deleteMahasiswa = (nim) => {
     setMahasiswa((prev) => prev.filter((mhs) => mhs.nim !== nim));
-    alert("Data berhasil dihapus!");
   };
 
   // openAddModal: set true pada state modal, set null pada state selected mahasiswa
@@ -58,17 +59,20 @@ const Mahasiswa = () => {
   // handleSubmit: kondisi ketika selected mahasiswa terisi maka update, ketika tidak maka tambah baris baru
   const handleSubmit = (formData) => {
     if (selectedMahasiswa) {
-      // Mode Edit: update mahasiswa
-      updateMahasiswa(formData.nim, formData);
+      confirmUpdate(() => {
+        updateMahasiswa(formData.nim, formData);
+      });
     } else {
-      // Mode Add: tambah mahasiswa baru
       storeMahasiswa(formData);
     }
   };
 
   // handleDelete: menerima parameter nim mahasiswa untuk dipassing ke deleteMahasiswa
   const handleDelete = (nim) => {
-    deleteMahasiswa(nim);
+    confirmDelete(() => {
+      deleteMahasiswa(nim);
+      toastSuccess("Data berhasil dihapus");
+    });
   };
 
   return (

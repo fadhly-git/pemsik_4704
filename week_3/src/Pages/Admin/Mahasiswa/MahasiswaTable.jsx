@@ -4,10 +4,8 @@ import { useNavigate } from "react-router-dom";
 const MahasiswaTable = ({ mahasiswa, openEditModal, onDelete }) => {
   const navigate = useNavigate();
 
-  const handleDelete = (nim, nama) => {
-    if (confirm(`Yakin ingin menghapus data ${nama}?`)) {
-      onDelete(nim);
-    }
+  const handleDelete = (nim) => {
+    onDelete(nim);
   };
 
   return (
@@ -38,11 +36,10 @@ const MahasiswaTable = ({ mahasiswa, openEditModal, onDelete }) => {
                 <td className="py-2 px-4">{mhs.nama}</td>
                 <td className="py-2 px-4">
                   <span
-                    className={`px-2 py-1 rounded text-xs ${
-                      mhs.status
-                        ? "bg-green-100 text-green-800"
-                        : "bg-red-100 text-red-800"
-                    }`}
+                    className={`px-2 py-1 rounded text-xs ${mhs.status
+                      ? "bg-green-100 text-green-800"
+                      : "bg-red-100 text-red-800"
+                      }`}
                   >
                     {mhs.status ? "Aktif" : "Tidak Aktif"}
                   </span>

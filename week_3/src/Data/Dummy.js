@@ -1,7 +1,7 @@
 // Dummy user untuk login
 export const dummyUser = {
   email: "admin@mail.com",
-  password: "123456",
+  password: "masuk",
   name: "Admin",
 };
 

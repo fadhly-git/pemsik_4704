@@ -1,3 +1,4 @@
+import { confirmLogout } from "@/utils/helpers/swal-helpers";
 import { Button } from "./Button";
 
 const Header = () => {
@@ -5,6 +6,14 @@ const Header = () => {
     const menu = document.getElementById("profileMenu");
     if (menu) menu.classList.toggle("hidden");
   };
+
+  const handleLogout = () => {
+    confirmLogout(() => {
+      window.location.href = "/";
+      localStorage.removeItem("user");
+    });
+  };
+
 
   return (
     <header className="bg-white shadow-md">
@@ -23,10 +32,7 @@ const Header = () => {
               Profile
             </a>
             <button
-              onClick={() => {
-                localStorage.removeItem("user");
-                location.href = "/";
-              }}
+              onClick={handleLogout}
               className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
             >
               Logout
@@ -38,4 +44,4 @@ const Header = () => {
   );
 };
 
-export  {Header};
+export { Header };
