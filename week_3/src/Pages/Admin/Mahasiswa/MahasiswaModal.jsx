@@ -6,24 +6,34 @@ import { Button } from "@/components/ui/Button";
 
 const MahasiswaModal = ({ isModalOpen, onClose, onSubmit, selectedMahasiswa }) => {
   const [form, setForm] = useState({
+    id: null,
     nim: "",
     nama: "",
     status: true,
+    max_sks: 0,
   });
 
   // useEffect: ketika selectedMahasiswa ada maka setForm di isi dengan detail selectedMahasiswanya
   useEffect(() => {
     if (selectedMahasiswa) {
       setForm({
+        id: selectedMahasiswa.id ?? null,
         nim: selectedMahasiswa.nim,
         nama: selectedMahasiswa.nama,
-        status: selectedMahasiswa.status,
+        status:
+          selectedMahasiswa.status === true ||
+          selectedMahasiswa.status === "true" ||
+          selectedMahasiswa.status === 1 ||
+          selectedMahasiswa.status === "1",
+        max_sks: selectedMahasiswa.max_sks || 0,
       });
     } else {
       setForm({
+        id: null,
         nim: "",
         nama: "",
         status: true,
+        max_sks: 0,
       });
     }
   }, [selectedMahasiswa, isModalOpen]);
@@ -42,29 +52,20 @@ const MahasiswaModal = ({ isModalOpen, onClose, onSubmit, selectedMahasiswa }) =
     e.preventDefault();
 
     // Form validasi: berikan validasi yang diperlukan
-    if (!form.nim || !form.nama) {
-      alert("NIM dan Nama wajib diisi");
+    if (!form.nim || !form.nama || !form.max_sks) {
+      alert("NIM, Nama, dan Max SKS wajib diisi");
       return;
     }
 
-    // Validasi NIM harus berupa angka
-    if (!/^\d+$/.test(form.nim)) {
-      alert("NIM harus berupa angka");
-      return;
-    }
-
-    // Konfirmasi sebelum submit
-    const confirmMessage = selectedMahasiswa
-      ? `Yakin ingin mengubah data ${form.nama}?`
-      : `Yakin ingin menambahkan data ${form.nama}?`;
-
-    if (!confirm(confirmMessage)) {
+    // Validasi NIM: izinkan huruf, angka dan titik (contoh: A11.2022)
+    if (!/^[A-Za-z0-9.]+$/.test(form.nim)) {
+      alert("NIM hanya boleh berisi huruf, angka, dan titik (contoh: A11.2022)");
       return;
     }
 
     // Panggil onSubmit dengan parameter state form
     onSubmit(form);
-    
+
     // Panggil onClose
     onClose();
   };
@@ -124,6 +125,21 @@ const MahasiswaModal = ({ isModalOpen, onClose, onSubmit, selectedMahasiswa }) =
               onChange={handleChange}
               placeholder="Masukkan Nama"
               required
+            />
+          </div>
+
+          {/* Input Max SKS */}
+          <div>
+            <Label htmlFor="max_sks">Max SKS</Label>
+            <Input
+              type="number"
+              name="max_sks"
+              id="max_sks"
+              value={form.max_sks}
+              onChange={handleChange}
+              placeholder="Masukkan Max SKS"
+              required
+              min="0"
             />
           </div>
 

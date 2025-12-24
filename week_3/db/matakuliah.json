@@ -1,0 +1,56 @@
+[
+  {
+    "id": "1",
+    "kode": "IF101",
+    "nama": "Algoritma dan Pemrograman",
+    "name": "Algoritma dan Pemrograman",
+    "sks": 3,
+    "semester": 1,
+    "deskripsi": "Mata kuliah dasar pemrograman yang mempelajari logika dan algoritma"
+  },
+  {
+    "id": "2",
+    "kode": "IF102",
+    "nama": "Basis Data",
+    "name": "Basis Data",
+    "sks": 3,
+    "semester": 2,
+    "deskripsi": "Konsep dasar database, SQL, normalisasi, dan desain database"
+  },
+  {
+    "id": "3",
+    "kode": "IF201",
+    "nama": "Jaringan Komputer",
+    "name": "Jaringan Komputer",
+    "sks": 2,
+    "semester": 3,
+    "deskripsi": "Mempelajari konsep jaringan komputer, protokol, dan keamanan jaringan"
+  },
+  {
+    "id": "4",
+    "kode": "IF202",
+    "nama": "Pemrograman Web",
+    "name": "Pemrograman Web",
+    "sks": 4,
+    "semester": 4,
+    "deskripsi": "HTML, CSS, JavaScript, dan framework modern untuk pengembangan web"
+  },
+  {
+    "id": "5",
+    "kode": "IF301",
+    "nama": "Kecerdasan Buatan",
+    "name": "Kecerdasan Buatan",
+    "sks": 3,
+    "semester": 5,
+    "deskripsi": "Pengenalan AI, machine learning, neural networks, dan aplikasinya"
+  },
+  {
+    "id": "6",
+    "kode": "IF302",
+    "nama": "Pemrograman Mobile",
+    "name": "Pemrograman Mobile",
+    "sks": 3,
+    "semester": 6,
+    "deskripsi": "Pengembangan aplikasi mobile untuk Android dan iOS"
+  }
+]

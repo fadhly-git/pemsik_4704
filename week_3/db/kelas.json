@@ -1,0 +1,41 @@
+[
+  {
+    "id": "1",
+    "mata_kuliah_id": "1",
+    "dosen_id": "1",
+    "mahasiswa_ids": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5"
+    ]
+  },
+  {
+    "mata_kuliah_id": "2",
+    "dosen_id": "1",
+    "mahasiswa_ids": [
+      "14",
+      "18",
+      "16",
+      "19"
+    ],
+    "id": "BS5uwcr"
+  },
+  {
+    "mata_kuliah_id": "6",
+    "dosen_id": "1",
+    "mahasiswa_ids": [
+      "19"
+    ],
+    "id": "o_C3d7q"
+  },
+  {
+    "mata_kuliah_id": "3",
+    "dosen_id": "3",
+    "mahasiswa_ids": [
+      "18"
+    ],
+    "id": "BIVuQFN"
+  }
+]

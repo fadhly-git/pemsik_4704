@@ -1,0 +1,47 @@
+[
+  {
+    "id": "1",
+    "nip": "197001012005011001",
+    "nama": "Dr. Siti Nurhaliza, M.Kom",
+    "name": "Slamet",
+    "email": "siti.nurhaliza@kampus.ac.id",
+    "keahlian": "Artificial Intelligence",
+    "max_sks": 12
+  },
+  {
+    "id": "2",
+    "nip": "197002022005021002",
+    "nama": "Dr. Budi Santoso, M.T",
+    "name": "Tini",
+    "email": "budi.santoso@kampus.ac.id",
+    "keahlian": "Database Management",
+    "max_sks": 10
+  },
+  {
+    "id": "3",
+    "nip": "198503152010121003",
+    "nama": "Ahmad Fauzi, S.Kom, M.Sc",
+    "name": "Udin",
+    "email": "ahmad.fauzi@kampus.ac.id",
+    "keahlian": "Web Development",
+    "max_sks": 14
+  },
+  {
+    "id": "4",
+    "nip": "199005202015042004",
+    "nama": "Rina Wijaya, S.T, M.Kom",
+    "name": "Vina",
+    "email": "rina.wijaya@kampus.ac.id",
+    "keahlian": "Mobile Application",
+    "max_sks": 16
+  },
+  {
+    "id": "5",
+    "nip": "199105102016051005",
+    "nama": "Wawan Setiawan, S.Kom, M.T",
+    "name": "Wawan",
+    "email": "wawan.setiawan@kampus.ac.id",
+    "keahlian": "Network Security",
+    "max_sks": 8
+  }
+]

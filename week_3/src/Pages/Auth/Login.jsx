@@ -2,29 +2,45 @@ import { Button } from "@/components/ui/Button";
 import { Form } from "@/components/ui/Form";
 import { Input } from "@/components/ui/Input";
 import { Label } from "@/components/ui/Label";
-import { dummyUser } from "@/Data/Dummy";
+import { useState } from "react";
+import { login } from "@/utils/apis/AuthApi";
 import Heading from "@/components/ui/Heading";
 import { Card } from "@/components/ui/Card";
 import { Link } from "@/components/ui/Link";
 import { toastError, toastSuccess } from "@/utils/helpers/toast-helper";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import { useAuthStateContext } from "@/Context/AuthContext";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { user, setUser } = useAuthStateContext();
 
-  const handleSubmit = (e) => {
+  const [form, setForm] = useState({ email: "", password: "" });
+
+  // Redirect jika sudah login
+  if (user) {
+    return <Navigate to="/admin/dashboard" />;
+  }
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const email = e.target.email.value;
-    const password = e.target.password.value;
+    const { email, password } = form;
 
-    if (email === dummyUser.email && password === dummyUser.password) {
-      localStorage.setItem("user", JSON.stringify(dummyUser));
-      toastSuccess("Login berhasil! Selamat datang kembali.");
+    try {
+      const userData = await login(email, password);
+      setUser(userData); // Simpan ke context + localStorage
+      toastSuccess("Login berhasil");
+      
       setTimeout(() => {
         navigate("/admin/dashboard");
-      }, 1000);
-    } else {
-      toastError("Email atau password salah");
+      }, 100); // Beri waktu React update context
+    } catch (err) {
+      toastError(err.message);
     }
   };
 
@@ -39,6 +55,8 @@ const Login = () => {
             name="email"
             placeholder="Masukkan email"
             required
+            value={form.email}
+            onChange={handleChange}
           />
         </div>
         <div>
@@ -48,6 +66,8 @@ const Login = () => {
             name="password"
             placeholder="Masukkan password"
             required
+            value={form.password}
+            onChange={handleChange}
           />
         </div>
         <div className="flex justify-between items-center">

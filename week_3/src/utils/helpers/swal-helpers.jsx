@@ -1,46 +1,56 @@
 import Swal from "sweetalert2";
 
-export const confirmLogout = (onConfirm) => {
-  Swal.fire({
+const confirmAction = async ({
+  title = "Konfirmasi",
+  text = "Apakah anda yakin?",
+  icon = "question",
+  confirmButtonText = "Ya",
+  cancelButtonText = "Batal",
+} = {}) => {
+  const result = await Swal.fire({
+    title,
+    text,
+    icon,
+    showCancelButton: true,
+    confirmButtonText,
+    cancelButtonText,
+  });
+
+  return result.isConfirmed;
+};
+
+export const confirmLogout = async () => {
+  return confirmAction({
     title: "Yakin ingin logout?",
+    text: "Anda akan keluar dari sistem.",
     icon: "warning",
-    showCancelButton: true,
     confirmButtonText: "Ya, logout",
-    cancelButtonText: "Batal",
-  }).then((result) => {
-    if (result.isConfirmed) {
-      onConfirm();
-      Swal.fire("Logout berhasil", "", "success");
-    }
   });
 };
 
-export const confirmDelete = (onConfirm) => {
-  Swal.fire({
+export const confirmDelete = async () => {
+  return confirmAction({
     title: "Yakin ingin menghapus data ini?",
+    text: "Tindakan ini tidak bisa dikembalikan.",
     icon: "warning",
-    showCancelButton: true,
     confirmButtonText: "Ya, hapus",
-    cancelButtonText: "Batal",
-  }).then((result) => {
-    if (result.isConfirmed) {
-      onConfirm();
-      Swal.fire("Dihapus!", "Data berhasil dihapus.", "success");
-    }
   });
 };
 
-export const confirmUpdate = (onConfirm) => {
-  Swal.fire({
+export const confirmUpdate = async () => {
+  return confirmAction({
     title: "Yakin ingin memperbarui data ini?",
+    text: "Perubahan akan disimpan ke sistem.",
     icon: "question",
-    showCancelButton: true,
     confirmButtonText: "Ya, perbarui",
-    cancelButtonText: "Batal",
-  }).then((result) => {
-    if (result.isConfirmed) {
-      onConfirm();
-      Swal.fire("Diperbarui!", "Data berhasil diperbarui.", "success");
-    }
+  });
+};
+
+export const confirmSave = async (name = "data ini") => {
+  return confirmAction({
+    title: `Yakin ingin menyimpan ${name}?`,
+    text: "Data akan ditambahkan ke sistem.",
+    icon: "question",
+    confirmButtonText: "Ya, simpan",
   });
 };

@@ -1,99 +1,225 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/Card";
 import Heading from "@/components/ui/Heading";
 import { Button } from "@/components/ui/Button";
-import { mahasiswaList } from "@/Data/Dummy";
+import Pagination from "@/components/ui/Pagination";
 import MahasiswaTable from "./MahasiswaTable";
 import MahasiswaModal from "./MahasiswaModal";
-import { confirmDelete, confirmUpdate } from "@/utils/helpers/swal-helpers";
-import { toastError, toastSuccess } from "@/utils/helpers/toast-helper";
+import { confirmDelete, confirmUpdate, confirmSave } from "@/utils/helpers/swal-helpers";
+import { useAuthStateContext } from "@/Context/AuthContext";
+import {
+  useMahasiswa,
+  useStoreMahasiswa,
+  useUpdateMahasiswa,
+  useDeleteMahasiswa,
+} from "@/utils/hooks/useMahasiswa";
+import { getAllKelas } from "@/utils/apis/KelasApi";
+import { getAllMataKuliah } from "@/utils/apis/MataKuliahApi";
 
 const Mahasiswa = () => {
-  // State mahasiswa: mahasiswa, setMahasiswa
-  const [mahasiswa, setMahasiswa] = useState(mahasiswaList);
+  const { user } = useAuthStateContext();
+  
+  // State untuk kelas dan mata kuliah
+  const [kelas, setKelas] = useState([]);
+  const [mataKuliah, setMataKuliah] = useState([]);
+  
+  // Pagination states
+  const [page, setPage] = useState(1);
+  const [perPage, setPerPage] = useState(10);
+  const [sortBy, setSortBy] = useState("nama");
+  const [sortOrder, setSortOrder] = useState("asc");
+  const [search, setSearch] = useState("");
 
-  // State selected mahasiswa: selectedMahasiswa, setSelectedMahasiswa
+  // React Query with pagination
+  const {
+    data: result = { data: [], total: 0 },
+    isLoading,
+  } = useMahasiswa({
+    q: search,
+    _sort: sortBy,
+    _order: sortOrder,
+    _page: page,
+    _limit: perPage,
+  });
+
+  const mahasiswaData = result.data;
+  const totalCount = result.total;
+  const totalPages = Math.ceil(totalCount / perPage);
+
+  const { mutate: storeMhs } = useStoreMahasiswa();
+  const { mutate: updateMhs } = useUpdateMahasiswa();
+  const { mutate: deleteMhs } = useDeleteMahasiswa();
+
   const [selectedMahasiswa, setSelectedMahasiswa] = useState(null);
-
-  // State modal: isModalOpen, setModalOpen
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // storeMahasiswa: tambah mahasiswa baru ke state mahasiswa
-  const storeMahasiswa = (newMhs) => {
-    // Validasi NIM unique
-    const exists = mahasiswa.find((m) => m.nim === newMhs.nim);
-    if (exists) {
-      toastError("NIM sudah terdaftar! Gunakan NIM yang berbeda.");
-      return false;
+  // Fetch data kelas dan mata kuliah
+  useEffect(() => {
+    setTimeout(() => fetchData(), 500);
+  }, []);
+  
+  const fetchData = async () => {
+    try {
+      const [resKelas, resMataKuliah] = await Promise.all([
+        getAllKelas(),
+        getAllMataKuliah(),
+      ]);
+      setKelas(resKelas.data);
+      setMataKuliah(resMataKuliah.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
     }
-    setMahasiswa((prev) => [...prev, newMhs]);
-    toastSuccess("Data berhasil ditambahkan");
-    return true;
   };
 
-  // updateMahasiswa: update mahasiswa dengan nim dari state mahasiswa
-  const updateMahasiswa = (nim, updatedData) => {
-    setMahasiswa((prev) =>
-      prev.map((mhs) => (mhs.nim === nim ? { ...mhs, ...updatedData } : mhs))
-    );
-    toastSuccess("Data berhasil diperbarui");
+  // Fungsi untuk menghitung total SKS mahasiswa
+  const getTotalSks = (mhsId) => {
+    return kelas
+      .filter(k => k.mahasiswa_ids.includes(mhsId))
+      .map(k => mataKuliah.find(mk => mk.id === k.mata_kuliah_id)?.sks || 0)
+      .reduce((a, b) => a + b, 0);
   };
 
-  // deleteMahasiswa: delete mahasiswa dengan nim dari state mahasiswa
-  const deleteMahasiswa = (nim) => {
-    setMahasiswa((prev) => prev.filter((mhs) => mhs.nim !== nim));
-  };
-
-  // openAddModal: set true pada state modal, set null pada state selected mahasiswa
   const openAddModal = () => {
     setSelectedMahasiswa(null);
     setIsModalOpen(true);
   };
 
-  // openEditModal: set true pada state modal, set objek mahasiswa pada state selected mahasiswa dari parameter
   const openEditModal = (mahasiswaObj) => {
     setSelectedMahasiswa(mahasiswaObj);
     setIsModalOpen(true);
   };
 
-  // handleSubmit: kondisi ketika selected mahasiswa terisi maka update, ketika tidak maka tambah baris baru
-  const handleSubmit = (formData) => {
+  const handleSubmit = async (formData) => {
     if (selectedMahasiswa) {
-      confirmUpdate(() => {
-        updateMahasiswa(formData.nim, formData);
-      });
+      // Update
+      const confirmed = await confirmUpdate();
+      if (!confirmed) return;
+
+      updateMhs(
+        { id: formData.id, data: formData },
+        {
+          onSuccess: () => {
+            setIsModalOpen(false);
+          },
+        }
+      );
     } else {
-      storeMahasiswa(formData);
+      // Create
+      const confirmed = await confirmSave(formData.nama);
+      if (!confirmed) return;
+
+      // Remove id from payload
+      // eslint-disable-next-line no-unused-vars
+      const { id, ...payload } = formData;
+      
+      storeMhs(payload, {
+        onSuccess: () => {
+          setIsModalOpen(false);
+        },
+      });
     }
   };
 
-  // handleDelete: menerima parameter nim mahasiswa untuk dipassing ke deleteMahasiswa
-  const handleDelete = (nim) => {
-    confirmDelete(() => {
-      deleteMahasiswa(nim);
-      toastSuccess("Data berhasil dihapus");
-    });
+  const handleDelete = async (id) => {
+    const confirmed = await confirmDelete();
+    if (!confirmed) return;
+
+    deleteMhs(id);
+  };
+
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
+  };
+
+  const handlePerPageChange = (newPerPage) => {
+    setPerPage(newPerPage);
+    setPage(1); // Reset to first page
   };
 
   return (
     <>
       <Card>
-        <div className="flex justify-between items-center mb-4">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
           <Heading as="h2" className="mb-0 text-left">
             Daftar Mahasiswa
           </Heading>
-          <Button onClick={openAddModal}>+ Tambah Mahasiswa</Button>
+          {user?.permission?.includes("mahasiswa.create") && (
+            <Button onClick={openAddModal}>+ Tambah Mahasiswa</Button>
+          )}
         </div>
 
-        {/* Memanggil komponen MahasiswaTable dengan passing props */}
-        <MahasiswaTable
-          mahasiswa={mahasiswa}
-          openEditModal={openEditModal}
-          onDelete={handleDelete}
-        />
+        {/* Filter Controls */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+          {/* Search */}
+          <input
+            type="text"
+            placeholder="Cari nama/NIM..."
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              setPage(1);
+            }}
+            className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+
+          {/* Sort By Field */}
+          <select
+            value={sortBy}
+            onChange={(e) => {
+              setSortBy(e.target.value);
+              setPage(1);
+            }}
+            className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="nama">Urutkan: Nama</option>
+            <option value="nim">Urutkan: NIM</option>
+            <option value="max_sks">Urutkan: Max SKS</option>
+          </select>
+
+          {/* Sort Order */}
+          <select
+            value={sortOrder}
+            onChange={(e) => {
+              setSortOrder(e.target.value);
+              setPage(1);
+            }}
+            className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="asc">A → Z</option>
+            <option value="desc">Z → A</option>
+          </select>
+        </div>
+
+        {isLoading ? (
+          <div className="text-center py-8">
+            <p className="text-gray-500">Memuat data...</p>
+          </div>
+        ) : user?.permission?.includes("mahasiswa.read") ? (
+          <>
+            <MahasiswaTable
+              mahasiswa={mahasiswaData}
+              openEditModal={openEditModal}
+              onDelete={handleDelete}
+              isLoading={isLoading}
+              getTotalSks={getTotalSks}
+            />
+            <Pagination
+              currentPage={page}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+              perPage={perPage}
+              onPerPageChange={handlePerPageChange}
+              totalCount={totalCount}
+              isLoading={isLoading}
+            />
+          </>
+        ) : (
+          <div className="text-center py-8">
+            <p className="text-gray-500">Anda tidak memiliki akses untuk melihat data mahasiswa</p>
+          </div>
+        )}
       </Card>
 
-      {/* Memanggil komponen MahasiswaModal dengan passing props */}
       <MahasiswaModal
         isModalOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

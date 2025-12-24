@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "name": "Admin 1",
+    "email": "admin@mail.com",
+    "password": "masuk",
+    "role": "admin",
+    "permission": [
+      "dashboard.page",
+      "mahasiswa.page",
+      "mahasiswa.read",
+      "mahasiswa.create",
+      "mahasiswa.update",
+      "mahasiswa.delete",
+      "kelas.page",
+      "dosen.page",
+      "dosen.read",
+      "dosen.create",
+      "dosen.update",
+      "dosen.delete",
+      "matakuliah.page",
+      "matakuliah.read",
+      "matakuliah.create",
+      "matakuliah.update",
+      "matakuliah.delete",
+      "rencana-studi.page",
+      "rencana-studi.read",
+      "rencana-studi.create",
+      "rencana-studi.update",
+      "rencana-studi.delete",
+      "user.page",
+      "user.read",
+      "user.create",
+      "user.update",
+      "user.delete"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Mahasiswa 1",
+    "email": "mahasiswa@mail.com",
+    "password": "masuk",
+    "role": "mahasiswa",
+    "permission": [
+      "dashboard.page",
+      "kelas.page",
+      "krs.page",
+      "krs.read",
+      "dosen.read"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Dosen 1",
+    "email": "dosen@mail.com",
+    "password": "dosen123",
+    "role": "dosen",
+    "permission": [
+      "dashboard.page",
+      "mahasiswa.page",
+      "mahasiswa.read",
+      "matakuliah.page",
+      "matakuliah.read"
+    ]
+  }
+]
