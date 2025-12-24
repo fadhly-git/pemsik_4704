@@ -1,4 +1,4 @@
-import axios from "@/Utils/AxiosInstance";
+import axios from "@/utils/AxiosInstance";
 
 // Ambil semua mahasiswa dengan pagination
 export const getAllMahasiswa = (params = {}) => 
